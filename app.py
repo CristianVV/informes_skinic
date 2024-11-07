@@ -384,7 +384,7 @@ def main():
         # DIN input
         din = st.sidebar.text_input(
             "DIN del equipo",
-            value="CM-A30-000227",
+            value="CM-A30-000000",
             help="Introduce el DIN del equipo a analizar"
         )
 
