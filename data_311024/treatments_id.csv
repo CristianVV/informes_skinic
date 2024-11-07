@@ -1,0 +1,139 @@
+﻿Treatment_ID,Tipo,Subtipo,Subprograma,Secuencia,PVP,Tipo_disparo
+FHO_FA_DRY,FHOS,FHOS 15',FHOS Piel Seca,1,60,activacion
+FHO_FA_DEH,FHOS,FHOS 15',FHOS Piel Deshidratada,1,60,activacion
+FHO_FA_OIL,FHOS,FHOS 15',FHOS Piel Grasa,1,60,activacion
+FHO_FA_PRE,FHOS,FHOS 15',FHOS Preventivo,1,60,activacion
+FHO_FA_AAG,FHOS,FHOS 15',FHOS Antiage,1,60,activacion
+FHO_FA_TAN,FHOS,FHOS 15',FHOS 365 Piel Bronceada,1,60,activacion
+FHO_FP_REG,FHOS,FHOS REPAIR,FHOS Reparador,1,60,modulacion
+FHO_FP_REL,FHOS,FHOS REPAIR,FHOS Calmante,1,60,modulacion
+FHO_FP_DET,FHOS,FHOS REPAIR,FHOS Destoxificante,1,60,modulacion
+FHO_FP_PUR,FHOS,FHOS REPAIR,FHOS Purificante,1,60,modulacion
+FHO_FB_END,FHOS,FHOS REPAIR,FHOS Energético ,1,60,modulacion
+FHO_FA_WR1,FHOS,FHOS INTENSE,FHOS Arrugas,1,60,activacion
+FHO_FA_WR2,FHOS,FHOS INTENSE,FHOS Arrugas,1,60,activacion
+FHO_FA_WR3,FHOS,FHOS INTENSE,FHOS Arrugas,1,60,activacion
+FHO_FA_WR4,FHOS,FHOS INTENSE,FHOS Arrugas,1,60,activacion
+FHO_FA_SG1,FHOS,FHOS INTENSE,FHOS Flacidez,1,60,activacion
+FHO_FA_SG2,FHOS,FHOS INTENSE,FHOS Flacidez,1,60,activacion
+FHO_FA_SG3,FHOS,FHOS INTENSE,FHOS Flacidez,1,60,activacion
+FHO_FA_SG4,FHOS,FHOS INTENSE,FHOS Flacidez,1,60,activacion
+FHO_FA_IMP,FHOS,FHOS INTENSE,FHOS Imperfecciones,1,60,activacion
+FHO_FA_DCH,FHOS,FHOS INTENSE,FHOS Doble Mentón,1,60,activacion
+FHO_FA_PIG,FHOS,FHOS INTENSE,FHOS Hiperpigmentación,1,60,activacion
+FHO_FA_FOX,FHOS,FHOS PREMED,FHOTOX,1,60,activacion
+FHO_FA_LIF,FHOS,FHOS PREMED,FHOS Lift,1,60,activacion
+FHO_FA_BIO,FHOS,FHOS PREMED,FHOS Bio,1,60,activacion
+FHO_FB_MES,FHOS,FHOS PREMED,FHOS Meso,1,60,modulacion
+FHO_BA_REA,FHOS,FHOS 15',FHOS Reafirmación,1,60,activacion
+FHO_BA_ORA,FHOS,FHOS 15',FHOS Piel de Naranja,1,60,activacion
+FHO_BA_RES,FHOS,FHOS 15',FHOS Remodelación,1,60,activacion
+FHO_BA_KRE,FHOS,FHOS 15',FHOS Imperfecciones,1,60,activacion
+FHO_BB_DR1,FHOS,FHOS REPAIR,FHOS Drenaje,1,60,modulacion
+FHO_BB_END,FHOS,FHOS REPAIR,FHOS Energético ,1,60,modulacion
+FHO_BB_ME1,FHOS,FHOS REPAIR,FHOS Metabolismo,1,60,modulacion
+FHO_BB_DR2,FHOS,FHOS REPAIR,FHOS Retorno ,1,60,modulacion
+FHO_BA_RE1,FHOS,FHOS INTENSE,FHOS Reductor,1,60,activacion
+FHO_BA_RE2,FHOS,FHOS INTENSE,FHOS Reductor,1,60,activacion
+FHO_BA_RE3,FHOS,FHOS INTENSE,FHOS Reductor,1,60,activacion
+FHO_BA_RE4,FHOS,FHOS INTENSE,FHOS Reductor,1,60,activacion
+FHO_BA_TE1,FHOS,FHOS INTENSE,FHOS Tensor,1,60,activacion
+FHO_BA_TE2,FHOS,FHOS INTENSE,FHOS Tensor,1,60,activacion
+FHO_BA_TE3,FHOS,FHOS INTENSE,FHOS Tensor,1,60,activacion
+FHO_BA_TE4,FHOS,FHOS INTENSE,FHOS Tensor,1,60,activacion
+FHO_BA_RD1,FHOS,FHOS INTENSE,FHOS Redensificación,1,60,activacion
+FHO_BA_RD2,FHOS,FHOS INTENSE,FHOS Redensificación,1,60,activacion
+FHO_BA_RD3,FHOS,FHOS INTENSE,FHOS Redensificación,1,60,activacion
+FHO_BA_RD4,FHOS,FHOS INTENSE,FHOS Redensificación,1,60,activacion
+FHO_BA_ME2,FHOS,FHOS PREMED,FHOS Meso,1,60,activacion
+FHO_BA_TEN,FHOS,FHOS PREMED,FHOS Tensor,1,60,activacion
+FHO_BA_TEC,FHOS,FHOS PREMED,FHOS Tech,1,60,activacion
+FHO_FC_CAR,FHOS C.A.,FHOS C.A.,CARBÓN ACTIVO,1,45,activacion
+FHO_BC_CAR,FHOS C.A.,FHOS C.A.,CARBÓN ACTIVO,1,45,activacion
+FHO_FS_DRY,FHOS,FHOS 15',FHOS Piel Seca,2,60,estimulacion
+FHO_FS_DEH,FHOS,FHOS 15',FHOS Piel Deshidratada,2,60,estimulacion
+FHO_FS_OIL,FHOS,FHOS 15',FHOS Piel Grasa,2,60,estimulacion
+FHO_FS_PRE,FHOS,FHOS 15',FHOS Preventivo,2,60,estimulacion
+FHO_FS_AAG,FHOS,FHOS 15',FHOS Antiage,2,60,estimulacion
+FHO_FC_TAN,FHOS,FHOS 15',FHOS 365 Piel Bronceada,2,60,estimulacion
+FHO_FA_REG,FHOS,FHOS REPAIR,FHOS Reparador,2,60,activacion
+FHO_FA_REL,FHOS,FHOS REPAIR,FHOS Calmante,2,60,activacion
+FHO_FA_DET,FHOS,FHOS REPAIR,FHOS Destoxificante,2,60,activacion
+FHO_FA_PUR,FHOS,FHOS REPAIR,FHOS Purificante,2,60,activacion
+FHO_FA_END,FHOS,FHOS REPAIR,FHOS Energético ,2,60,activacion
+FHO_FS_WR1,FHOS,FHOS INTENSE,FHOS Arrugas,2,60,estimulacion
+FHO_FS_WR2,FHOS,FHOS INTENSE,FHOS Arrugas,2,60,estimulacion
+FHO_FS_WR3,FHOS,FHOS INTENSE,FHOS Arrugas,2,60,estimulacion
+FHO_FS_WR4,FHOS,FHOS INTENSE,FHOS Arrugas,2,60,estimulacion
+FHO_FS_SG1,FHOS,FHOS INTENSE,FHOS Flacidez,2,60,estimulacion
+FHO_FS_SG2,FHOS,FHOS INTENSE,FHOS Flacidez,2,60,estimulacion
+FHO_FS_SG3,FHOS,FHOS INTENSE,FHOS Flacidez,2,60,estimulacion
+FHO_FS_SG4,FHOS,FHOS INTENSE,FHOS Flacidez,2,60,estimulacion
+FHO_FS_IMP,FHOS,FHOS INTENSE,FHOS Imperfecciones,2,60,estimulacion
+FHO_FS_DCH,FHOS,FHOS INTENSE,FHOS Doble Mentón,2,60,estimulacion
+FHO_FS_PIG,FHOS,FHOS INTENSE,FHOS Hiperpigmentación,2,60,estimulacion
+FHO_FS_FOX,FHOS,FHOS PREMED,FHOTOX,2,60,estimulacion
+FHO_FS_LIF,FHOS,FHOS PREMED,FHOS Lift,2,60,estimulacion
+FHO_FS_BIO,FHOS,FHOS PREMED,FHOS Bio,2,60,estimulacion
+FHO_FA_MES,FHOS,FHOS PREMED,FHOS Meso,2,60,activacion
+FHO_BS_REA,FHOS,FHOS 15',FHOS Reafirmación,2,60,estimulacion
+FHO_BS_ORA,FHOS,FHOS 15',FHOS Piel de Naranja,2,60,estimulacion
+FHO_BS_RES,FHOS,FHOS 15',FHOS Remodelación,2,60,estimulacion
+FHO_BS_KRE,FHOS,FHOS 15',FHOS Imperfecciones,2,60,estimulacion
+FHO_BA_DR1,FHOS,FHOS REPAIR,FHOS Drenaje,2,60,activacion
+FHO_BA_END,FHOS,FHOS REPAIR,FHOS Energético ,2,60,activacion
+FHO_BA_ME1,FHOS,FHOS REPAIR,FHOS Metabolismo,2,60,activacion
+FHO_BA_DR2,FHOS,FHOS REPAIR,FHOS Retorno ,2,60,activacion
+FHO_BS_RE1,FHOS,FHOS INTENSE,FHOS Reductor,2,60,estimulacion
+FHO_BS_RE2,FHOS,FHOS INTENSE,FHOS Reductor,2,60,estimulacion
+FHO_BS_RE3,FHOS,FHOS INTENSE,FHOS Reductor,2,60,estimulacion
+FHO_BS_RE4,FHOS,FHOS INTENSE,FHOS Reductor,2,60,estimulacion
+FHO_BS_TE1,FHOS,FHOS INTENSE,FHOS Tensor,2,60,estimulacion
+FHO_BS_TE2,FHOS,FHOS INTENSE,FHOS Tensor,2,60,estimulacion
+FHO_BS_TE3,FHOS,FHOS INTENSE,FHOS Tensor,2,60,estimulacion
+FHO_BS_TE4,FHOS,FHOS INTENSE,FHOS Tensor,2,60,estimulacion
+FHO_BS_RD1,FHOS,FHOS INTENSE,FHOS Redensificación,2,60,estimulacion
+FHO_BS_RD2,FHOS,FHOS INTENSE,FHOS Redensificación,2,60,estimulacion
+FHO_BS_RD3,FHOS,FHOS INTENSE,FHOS Redensificación,2,60,estimulacion
+FHO_BS_RD4,FHOS,FHOS INTENSE,FHOS Redensificación,2,60,estimulacion
+FHO_BC_ME2,FHOS,FHOS PREMED,FHOS Meso,2,60,activacion
+FHO_BS_TEN,FHOS,FHOS PREMED,FHOS Tensor,2,60,estimulacion
+FHO_BS_TEC,FHOS,FHOS PREMED,FHOS Tech,2,60,estimulacion
+FHO_FS_REG,FHOS,FHOS REPAIR,FHOS Reparador,3,60,estimulacion
+FHO_FS_REL,FHOS,FHOS REPAIR,FHOS Calmante,3,60,estimulacion
+FHO_FS_DET,FHOS,FHOS REPAIR,FHOS Destoxificante,3,60,estimulacion
+FHO_FS_PUR,FHOS,FHOS REPAIR,FHOS Purificante,3,60,estimulacion
+FHO_FS_END,FHOS,FHOS REPAIR,FHOS Energético ,3,60,estimulacion
+FHO_FM_WR2,FHOS,FHOS INTENSE,FHOS Arrugas,3,60,pulso
+FHO_FM_WR3,FHOS,FHOS INTENSE,FHOS Arrugas,3,60,pulso
+FHO_FM_WR4,FHOS,FHOS INTENSE,FHOS Arrugas,3,60,pulso
+FHO_FM_SG2,FHOS,FHOS INTENSE,FHOS Flacidez,3,60,pulso
+FHO_FM_SG3,FHOS,FHOS INTENSE,FHOS Flacidez,3,60,pulso
+FHO_FM_SG4,FHOS,FHOS INTENSE,FHOS Flacidez,3,60,pulso
+FHO_FI_IMP,FHOS,FHOS INTENSE,FHOS Imperfecciones,3,60,pulso
+FHO_FM_DCH,FHOS,FHOS INTENSE,FHOS Doble Mentón,3,60,pulso
+FHO_FI_PIG,FHOS,FHOS INTENSE,FHOS Hiperpigmentación,3,60,pulso
+FHO_FM_LIF,FHOS,FHOS PREMED,FHOS Lift,3,60,pulso
+FHO_FM_BIO,FHOS,FHOS PREMED,FHOS Bio,3,60,pulso
+FHO_FS_MES,FHOS,FHOS PREMED,FHOS Meso,3,60,estimulacion
+FHO_BS_DR1,FHOS,FHOS REPAIR,FHOS Drenaje,3,60,estimulacion
+FHO_BS_END,FHOS,FHOS REPAIR,FHOS Energético ,3,60,estimulacion
+FHO_BS_ME1,FHOS,FHOS REPAIR,FHOS Metabolismo,3,60,estimulacion
+FHO_BS_DR2,FHOS,FHOS REPAIR,FHOS Retorno ,3,60,estimulacion
+FHO_BM_RE2,FHOS,FHOS INTENSE,FHOS Reductor,3,60,pulso
+FHO_BM_RE3,FHOS,FHOS INTENSE,FHOS Reductor,3,60,pulso
+FHO_BM_RE4,FHOS,FHOS INTENSE,FHOS Reductor,3,60,pulso
+FHO_BM_TE2,FHOS,FHOS INTENSE,FHOS Tensor,3,60,pulso
+FHO_BM_TE3,FHOS,FHOS INTENSE,FHOS Tensor,3,60,pulso
+FHO_BM_TE4,FHOS,FHOS INTENSE,FHOS Tensor,3,60,pulso
+FHO_BM_RD2,FHOS,FHOS INTENSE,FHOS Redensificación,3,60,pulso
+FHO_BM_RD3,FHOS,FHOS INTENSE,FHOS Redensificación,3,60,pulso
+FHO_BM_RD4,FHOS,FHOS INTENSE,FHOS Redensificación,3,60,pulso
+FHO_BM_TEN,FHOS,FHOS PREMED,FHOS Tech,3,60,pulso
+FHO_BM_TEC,FHOS,FHOS PREMED,FHOS Tech,3,60,pulso
+DEP_BU,DEPILACION,DEPILACION,Depilación en ráfaga,1,30,rafaga
+DEP_PU,DEPILACION,DEPILACION,Depilación en pulso,1,30,pulso
+SPT,DEPILACION,DEPILACION,Depilación en pulso,1,30,pulso
+SSR,FHOS,FHOS 15',FHOS genérico,1,60,estimulacion
+SHR,DEPILACION,DEPILACION,Depilación en ráfaga,1,30,rafaga
+NIR,FHOS,FHOS 15',FHOS genérico,1,60,activacion
