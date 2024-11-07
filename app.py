@@ -293,6 +293,11 @@ def generate_pdf_summary(filtered_handpiece_df, treatment_summary, subprogram_su
     if not treatment_summary.empty:
         story.append(Spacer(1, 20))
         story.append(Paragraph("Resumen de Tratamientos", styles['Heading2']))
+        # Add new explanatory text
+        story.append(Spacer(1, 12))
+        story.append(Paragraph("""
+            Se fija un precio de 25€ por depilación de media, de 60€ por tratamiento FHOS de media y de 50€ por tratamientos de FHOS Carbón Activo.
+        """, styles['Normal']))
 
         treatment_data = [treatment_summary.columns.tolist()] + treatment_summary.values.tolist()
         treatment_table = Table(treatment_data)
@@ -480,6 +485,7 @@ def main():
                     st.plotly_chart(fig2, use_container_width=True)
 
                 st.subheader("Detalles de Tratamientos")
+                st.info("Se fija un precio de 25€ por depilación de media, de 60€ por tratamiento FHOS de media y de 50€ por tratamientos de FHOS Carbón Activo.")
                 st.dataframe(treatment_summary)
 
                 st.subheader("Resumen por Subprogramas")
