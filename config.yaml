@@ -1,0 +1,17 @@
+cookie:
+  expiry_days: 30
+  key: random_signature_key
+  name: random_cookie_name
+credentials:
+  usernames:
+    vidal:
+      email: cvidal@belvi.es
+      name: Vidal
+      password: $2b$12$iYBmIAu4M.DLYBX42UEaoO7JxepiytZ/uGHVUwfvzIrbQX7KfssEO
+    drv:
+      email: cvidal@drv.es
+      name: DRV
+      password: $2b$12$m0XWvvZg9IWESqexdHoXcuJqgMyKBa0jK64t73rOWFVRTnfXVqVBu
+preauthorized:
+  emails:
+    - cvidal@belvi.es

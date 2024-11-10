@@ -11,6 +11,9 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 import io
 import pytz
+import streamlit_authenticator as stauth
+import yaml
+from yaml.loader import SafeLoader
 
 # Page config
 st.set_page_config(
@@ -18,6 +21,61 @@ st.set_page_config(
     page_icon="🔧",
     layout="wide"
 )
+
+# Load authentication config
+@st.cache_resource
+def load_auth_config():
+    with open('config.yaml') as file:
+        return yaml.load(file, Loader=SafeLoader)
+
+# Initialize authentication
+def init_auth():
+    config = load_auth_config()
+    authenticator = stauth.Authenticate(
+        config['credentials'],
+        config['cookie']['name'],
+        config['cookie']['key'],
+        config['cookie']['expiry_days']
+    )
+    return authenticator
+
+# Authentication
+def authenticate():
+    config = load_auth_config()
+    authenticator = stauth.Authenticate(
+        config['credentials'],
+        config['cookie']['name'],
+        config['cookie']['key'],
+        config['cookie']['expiry_days']
+    )
+
+    try:
+        # Store the login result first
+        login_result = authenticator.login(location='main')
+
+        # Check if login_result is None
+        if login_result is None:
+            st.warning('Please enter your username and password')
+            return False
+
+        # Unpack only if we have a result
+        name, authentication_status, username = login_result
+
+        if authentication_status:
+            authenticator.logout('Logout', 'sidebar')
+            st.sidebar.success(f'Welcome {name}')
+            return True
+        elif authentication_status == False:
+            st.error('Username/password is incorrect')
+            return False
+        else:
+            st.warning('Please enter your username and password')
+            return False
+
+    except Exception as e:
+        st.error(f"Authentication Error: {str(e)}")
+        st.error("Please check your config.yaml file and make sure all credentials are properly set.")
+        return False
 
 def convert_excel_date(excel_date):
     """Convert Excel date serial number to datetime"""
@@ -379,150 +437,187 @@ def generate_detailed_pdf(filtered_treatments_df, din, cutoff_date):
     return buffer
 
 def main():
-    # Load data
-    handpiece_df, drv_df, treatments_df, treatments_id_df = load_data()
+    st.title("🔧 Herramienta de análisis RAMASON")
 
-    if all(df is not None for df in [handpiece_df, drv_df, treatments_df, treatments_id_df]):
-        # Sidebar
+    # Initialize authentication state in session state if not exists
+    if 'authentication_status' not in st.session_state:
+        st.session_state['authentication_status'] = None
+    if 'name' not in st.session_state:
+        st.session_state['name'] = None
+    if 'username' not in st.session_state:
+        st.session_state['username'] = None
+
+    # Initialize authenticator
+    authenticator = init_auth()
+
+    # Attempt authentication with updated syntax for 0.4.1
+    try:
+        login_result = authenticator.login(key='login')
+        if login_result is not None:
+            name, authentication_status, username = login_result
+            st.session_state['name'] = name
+            st.session_state['authentication_status'] = authentication_status
+            st.session_state['username'] = username
+        else:
+            authentication_status = None
+    except Exception as e:
+        st.error(f"Error de autenticación: {str(e)}")
+        return
+
+    if st.session_state['authentication_status']:
+        # Show logout button and welcome message
+        authenticator.logout('Cerrar sesión', 'sidebar')
+        st.sidebar.success(f'Bienvenido/a {st.session_state["name"]}')
+
+        # Start main application
         st.sidebar.title("Configuración")
 
-        # DIN input
-        din = st.sidebar.text_input(
-            "DIN del equipo",
-            value="CM-A30-000000",
-            help="Introduce el DIN del equipo a analizar"
-        )
+        # Load data
+        handpiece_df, drv_df, treatments_df, treatments_id_df = load_data()
 
-        # Get suggested cutoff date and ensure it's timezone aware
-        suggested_date = get_suggested_cutoff_date(drv_df, din)
-        if suggested_date.tz is None:
-            suggested_date = suggested_date.tz_localize('UTC')
-
-        st.sidebar.info(f"Fecha de corte sugerida: {format_datetime_for_display(suggested_date)}")
-
-        # Ensure min_date is timezone aware
-        min_date = pd.Timestamp('2023-01-01', tz='UTC')
-
-        # Now both dates are timezone aware for comparison
-        default_date = max(suggested_date, min_date)
-
-        # Convert to date for the date_input widget
-        default_date_naive = default_date.tz_localize(None).date()
-        min_date_naive = min_date.tz_localize(None).date()
-
-        cutoff_date = st.sidebar.date_input(
-            "Fecha de corte",
-            value=default_date_naive,
-            min_value=min_date_naive,
-            max_value=datetime.now().date(),
-            help="Selecciona la fecha de corte para el análisis"
-        )
-
-        # Convert back to timezone-aware datetime for processing
-        cutoff_date = pd.Timestamp(cutoff_date).tz_localize('UTC')
-
-        # Add analyze button
-        analyze_button = st.sidebar.button("Analizar", type="primary")
-
-        st.sidebar.text("Desarrollado con 🖤 por Belvi.")
-        st.sidebar.text("Copyright © 2024 Belvi Digital S.L.")
-
-        # Main content - only show when analyze button is clicked
-        if analyze_button:
-            st.title("Análisis de equipamiento FHOS")
-            st.write(f"DIN: {din}")
-            st.write(f"Fecha de corte: {format_datetime_for_display(cutoff_date)}")
-
-            st.markdown("""
-            Este informe contiene datos de los equipos RAMASON FHOS (ej. RAMASON FHOS PROCYON) 
-            desde el 1 de enero de 2023 hasta el 31 de octubre de 2024. Estos datos son más precisos 
-            conforme más actualizados sean ya que dichos equipos han tenido diversas actualizaciones 
-            desde el 1 de enero de 2023 que han mejorado la categorización, precisión y optimización 
-            de dichos datos.
-            """)
-
-            # Process data
-            filtered_handpiece_df, filtered_treatments_df = process_data(
-                handpiece_df, treatments_df, treatments_id_df, din, cutoff_date
+        if all(df is not None for df in [handpiece_df, drv_df, treatments_df, treatments_id_df]):
+            # DIN input
+            din = st.sidebar.text_input(
+                "DIN del equipo",
+                value="CM-A30-000000",
+                help="Introduce el DIN del equipo a analizar"
             )
 
-            # Handpiece Analysis
-            st.subheader("Análisis de manípulos")
-            st.markdown("""
-            A continuación aparecerán todos los manípulos que han sido conectados a tu equipo. 
-            Si ves muchos manípulos conectados en un periodo corto de fechas esto se debe a que 
-            un técnico de servicio técnico ha conectado diversos manípulos a el equipo para realizar 
-            pruebas de conexión y potencia, comparando el rendimiento de tus manípulos a otros 
-            similares para diagnosticar si el error es de manípulo o del equipo. Los primeros dos 
-            manípulos que aparecen serán los de tu equipo en este caso.
-            """)
+            # Get suggested cutoff date and ensure it's timezone aware
+            suggested_date = get_suggested_cutoff_date(drv_df, din)
+            if suggested_date.tz is None:
+                suggested_date = suggested_date.tz_localize('UTC')
 
-            st.dataframe(filtered_handpiece_df)
+            st.sidebar.info(f"Fecha de corte sugerida: {format_datetime_for_display(suggested_date)}")
 
-            # Treatment Analysis
-            if not filtered_treatments_df.empty:
-                st.subheader("Análisis de tratamientos realizados")
+            # Ensure min_date is timezone aware
+            min_date = pd.Timestamp('2023-01-01', tz='UTC')
 
-                col1, col2 = st.columns(2)
+            # Now both dates are timezone aware for comparison
+            default_date = max(suggested_date, min_date)
 
-                with col1:
-                    treatment_summary = create_treatment_summary(filtered_treatments_df)
-                    fig1 = px.pie(
-                        treatment_summary,
-                        values='Cantidad',
-                        names='Tipo',
-                        title='Distribución de Tratamientos'
-                    )
-                    st.plotly_chart(fig1, use_container_width=True)
+            # Convert to date for the date_input widget
+            default_date_naive = default_date.tz_localize(None).date()
+            min_date_naive = min_date.tz_localize(None).date()
 
-                with col2:
-                    fig2 = px.pie(
-                        treatment_summary,
-                        values='PVP',
-                        names='Tipo',
-                        title='Distribución de Ingresos'
-                    )
-                    st.plotly_chart(fig2, use_container_width=True)
+            cutoff_date = st.sidebar.date_input(
+                "Fecha de corte",
+                value=default_date_naive,
+                min_value=min_date_naive,
+                max_value=datetime.now().date(),
+                help="Selecciona la fecha de corte para el análisis"
+            )
 
-                st.subheader("Detalles de Tratamientos")
-                st.info("Se fija un precio de 25€ por depilación de media, de 60€ por tratamiento FHOS de media y de 50€ por tratamientos de FHOS Carbón Activo.")
-                st.dataframe(treatment_summary)
+            # Convert back to timezone-aware datetime for processing
+            cutoff_date = pd.Timestamp(cutoff_date).tz_localize('UTC')
 
-                st.subheader("Resumen por Subprogramas")
-                subprogram_summary = create_subprogram_summary(filtered_treatments_df)
-                st.dataframe(subprogram_summary)
+            # Add analyze button
+            analyze_button = st.sidebar.button("Analizar", type="primary")
 
-                # PDF Download buttons
-                col1, col2 = st.columns(2)
-                with col1:
-                    pdf_buffer = generate_pdf_summary(
-                        filtered_handpiece_df,
-                        treatment_summary,
-                        subprogram_summary,
-                        din,
-                        cutoff_date
-                    )
-                    st.download_button(
-                        "Descargar Informe Resumen PDF",
-                        pdf_buffer,
-                        file_name=f"informe_resumen_{din}.pdf",
-                        mime="application/pdf"
-                    )
+            st.sidebar.text("Desarrollado con 🖤 por Belvi.")
+            st.sidebar.text("Copyright © 2024 Belvi Digital S.L.")
 
-                with col2:
-                    detailed_pdf = generate_detailed_pdf(
-                        filtered_treatments_df,
-                        din,
-                        cutoff_date
-                    )
-                    st.download_button(
-                        "Descargar Informe Tratamientos Detalle PDF",
-                        detailed_pdf,
-                        file_name=f"informe_detallado_{din}.pdf",
-                        mime="application/pdf"
-                    )
-            else:
-                st.warning("No se encontraron tratamientos para el período seleccionado")
+            # Main content - only show when analyze button is clicked
+            if analyze_button:
+                st.title("Análisis de equipamiento FHOS")
+                st.write(f"DIN: {din}")
+                st.write(f"Fecha de corte: {format_datetime_for_display(cutoff_date)}")
+
+                st.markdown("""
+                Este informe contiene datos de los equipos RAMASON FHOS (ej. RAMASON FHOS PROCYON) 
+                desde el 1 de enero de 2023 hasta el 31 de octubre de 2024. Estos datos son más precisos 
+                conforme más actualizados sean ya que dichos equipos han tenido diversas actualizaciones 
+                desde el 1 de enero de 2023 que han mejorado la categorización, precisión y optimización 
+                de dichos datos.
+                """)
+
+                # Process data
+                filtered_handpiece_df, filtered_treatments_df = process_data(
+                    handpiece_df, treatments_df, treatments_id_df, din, cutoff_date
+                )
+
+                # Handpiece Analysis
+                st.subheader("Análisis de manípulos")
+                st.markdown("""
+                A continuación aparecerán todos los manípulos que han sido conectados a tu equipo. 
+                Si ves muchos manípulos conectados en un periodo corto de fechas esto se debe a que 
+                un técnico de servicio técnico ha conectado diversos manípulos a el equipo para realizar 
+                pruebas de conexión y potencia, comparando el rendimiento de tus manípulos a otros 
+                similares para diagnosticar si el error es de manípulo o del equipo. Los primeros dos 
+                manípulos que aparecen serán los de tu equipo en este caso.
+                """)
+
+                st.dataframe(filtered_handpiece_df)
+
+                # Treatment Analysis
+                if not filtered_treatments_df.empty:
+                    st.subheader("Análisis de tratamientos realizados")
+
+                    col1, col2 = st.columns(2)
+
+                    with col1:
+                        treatment_summary = create_treatment_summary(filtered_treatments_df)
+                        fig1 = px.pie(
+                            treatment_summary,
+                            values='Cantidad',
+                            names='Tipo',
+                            title='Distribución de Tratamientos'
+                        )
+                        st.plotly_chart(fig1, use_container_width=True)
+
+                    with col2:
+                        fig2 = px.pie(
+                            treatment_summary,
+                            values='PVP',
+                            names='Tipo',
+                            title='Distribución de Ingresos'
+                        )
+                        st.plotly_chart(fig2, use_container_width=True)
+
+                    st.subheader("Detalles de Tratamientos")
+                    st.info("Se fija un precio de 25€ por depilación de media, de 60€ por tratamiento FHOS de media y de 50€ por tratamientos de FHOS Carbón Activo.")
+                    st.dataframe(treatment_summary)
+
+                    st.subheader("Resumen por Subprogramas")
+                    subprogram_summary = create_subprogram_summary(filtered_treatments_df)
+                    st.dataframe(subprogram_summary)
+
+                    # PDF Download buttons
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        pdf_buffer = generate_pdf_summary(
+                            filtered_handpiece_df,
+                            treatment_summary,
+                            subprogram_summary,
+                            din,
+                            cutoff_date
+                        )
+                        st.download_button(
+                            "Descargar Informe Resumen PDF",
+                            pdf_buffer,
+                            file_name=f"informe_resumen_{din}.pdf",
+                            mime="application/pdf"
+                        )
+
+                    with col2:
+                        detailed_pdf = generate_detailed_pdf(
+                            filtered_treatments_df,
+                            din,
+                            cutoff_date
+                        )
+                        st.download_button(
+                            "Descargar Informe Tratamientos Detalle PDF",
+                            detailed_pdf,
+                            file_name=f"informe_detallado_{din}.pdf",
+                            mime="application/pdf"
+                        )
+                else:
+                    st.warning("No se encontraron tratamientos para el período seleccionado")
+
+    elif st.session_state['authentication_status'] == False:
+        st.error('Usuario o contraseña incorrectos')
+    else:
+        st.warning('Por favor, introduzca su usuario y contraseña')
 
 if __name__ == "__main__":
     main()
